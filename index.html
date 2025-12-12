@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AridsWolfgangX | Software & Low-Level Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #000000;
+            --accent: #0055ff;
+            --secondary: #666666;
+            --border: #dddddd;
+            --card-bg: #f8f8f8;
+            --terminal-bg: #000000;
+            --terminal-text: #00ff00;
+        }
+
+        [data-theme="dark"] {
+            --bg: #000000;
+            --text: #ffffff;
+            --accent: #55aaff;
+            --secondary: #aaaaaa;
+            --border: #333333;
+            --card-bg: #111111;
+            --terminal-bg: #000000;
+            --terminal-text: #00ff00;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: normal;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: normal;
+            color: var(--accent);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: normal;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--accent);
+        }
+
+        a:hover {
+            border-bottom-style: solid;
+        }
+
+        .terminal {
+            background-color: var(--terminal-bg);
+            color: var(--terminal-text);
+            padding: 1.5rem;
+            border-radius: 0;
+            margin: 1.5rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .terminal .prompt {
+            color: #00aaff;
+        }
+
+        .terminal .command {
+            color: var(--terminal-text);
+        }
+
+        .terminal .output {
+            color: #ffffff;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .skill-tag {
+            padding: 0.3rem 0.7rem;
+            border: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        .project {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project:last-child {
+            border-bottom: none;
+        }
+
+        .project-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .blog-post {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .blog-post:last-child {
+            border-bottom: none;
+        }
+
+        .date {
+            color: var(--secondary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            justify-content: center;
+        }
+
+        .social-links a {
+            font-size: 1.2rem;
+            color: var(--secondary);
+            border: none;
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">arids<span>wolfgangX</span>()</div>
+            <button class="theme-toggle" id="themeToggle">
+                <span id="themeIcon">☀️</span>
+            </button>
+        </header>
+
+        <main>
+            <section id="about">
+                <h1>Hello, I'm AridsWolfgangX</h1>
+                <p>Systems Engineer | Offensive Security Researcher</p>
+                <p>Low-level enthusiast (C/C++) with full-stack compatibilities (Python/PHP). Building and breaking
+                    systems to understand them better. Currently engineering secure systems and developing offensive
+                    security tooling.</p>
+
+                <div class="terminal">
+                    <div><span class="prompt">$</span> <span class="command">whoami</span></div>
+                    <div class="output">aridswolfgangx - system engineer | offsec researcher</div>
+                    <br>
+                    <div><span class="prompt">$</span> <span class="command">pwd</span></div>
+                    <div class="output">/home/aridswolfgangx/projects</div>
+                    <br>
+                    <div><span class="prompt">$</span> <span class="command">cat skills.txt</span></div>
+                    <div class="output">C, C++, Python, PHP, Assembly, Linux Kernel, Networking</div>
+                </div>
+            </section>
+
+            <section id="projects">
+                <h2>Projects</h2>
+
+                <div class="project">
+                    <h3>Custom Linux Kernel Module</h3>
+                    <p>A simple rootkit detection system and illustration of process monitoring and file system
+                        encryption</p>
+                    <div class="skills">
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">x86 Assembly</span>
+                        <span class="skill-tag">Reverse Engineering</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#"><i class="fab fa-github"></i> Source</a>
+                        <a href="#"><i class="fas fa-external-link-alt"></i> Docs</a>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <h3>Custom Debugger and Emulator</h3>
+                    <p>Toy CPU emulator with debugging interface, implemented in C++ with Python bindings</p>
+                    <div class="skills">
+                        <span class="skill-tag">Linux Kernel</span>
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">Python</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#"><i class="fab fa-github"></i> Source</a>
+                        <a href="#"><i class="fab fa-external-link-alt"></i>Docs</a>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <h3>Network Stack Implementation</h3>
+                    <p>TCP/IP stack implementation in Rust from scratch. Includes Ethernet, ARP, IP, ICMP, and TCP
+                        protocols for educational purposes.</p>
+                    <div class="skills">
+                        <span class="skill-tag">C/C++</span>
+                        <span class="skill-tag">Networking</span>
+                        <span class="skill-tag">TCP/IP</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#"><i class="fab fa-github"></i> Source</a>
+                        <a href="#"><i class="fas fa-book"></i> Blog Post</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="blog">
+                <h2>Recent Writing</h2>
+
+                <div class="blog-post">
+                    <div class="date">January 2026</div>
+                    <h3>Understanding Memory Allocation in the Linux Kernel</h3>
+                    <p>Deep dive into slab allocators, buddy system, and how the kernel manages physical memory.</p>
+                    <a href="#">Read →</a>
+                </div>
+
+                <div class="blog-post">
+                    <div class="date">January 2026</div>
+                        <h3>Writing a Bootloader from Scratch</h3>
+                        <p>Step-by-step guide to creating a simple bootloader in x86 assembly that loads a kernel.</p>
+                        <a href="#">Read →</a>
+                    </div>
+
+                    <div class="blog-post">
+                        <div class="date">January 2026</div>
+                        <h3>Memory Safety in C/C++</h3>
+                        <p>Using modern C++ features to prevent vulnerabilities</p>
+                        <a href="#">Read →</a>
+                    </div>
+            </section>
+
+            <section id="contact">
+                <h2>Contact</h2>
+                <p>For work inquiries or technical discussions, email me at <a
+                        href="mailto:aridswolfgangx@proton.me">aridswolfgangx@proton.me</a></p>
+                <p>I'm also available for contract work on low-level systems projects, security auditings, and interesting researches.</p>
+
+                <div class="social-links">
+                    <a href="https://github.com/AridsWolfgang" title="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://x.com/AridsWolfgangX" title="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/0xaridswolfgangx/" title="LinkedIn"><i
+                            class="fab fa-linkedin"></i></a>
+                    <a href="https://medium.com/@aridswolfgang" title="Medium"><i class="fab fa-medium"></i></a>
+                    <a href="mailto:aridswolfgangx@proton.me" title="Email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2025 AridsWolfgangX.</p>
+            <p>Last updated: December, 2025</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        // Check for saved theme or prefered scheme
+        const currentTheme = localStorage.getItem('theme') ||
+            (prefersDarkScheme.matches ? 'dark' : 'light');
+
+        // Apply the current theme
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeIcon.textContent = '🌙';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeIcon.textContent = '☀️';
+        }
+
+        // Toggle theme on button click
+        themeToggle.addEventListener('click', function () {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = 'light';
+            let newIcon = '☀️';
+
+            if (currentTheme === 'light') {
+                newTheme = 'dark';
+                newIcon = '🌙';
+            }
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            themeIcon.textContent = newIcon;
+            localStorage.setItem('theme', newTheme);
+        });
+
+        // Simple terminal typing effect
+        const terminalText = `$ cat about.txt
+Name: AridsWolfgangX
+Role: Systems Engineer | Offensive Security Researcher
+Focus: Low-level development | Reverse Engineering | Researches
+Languages: C, C++, Python, PHP, x86 Assembly
+Interests: Operating systems, security tools, offensive security
+Location: Africa 🌍
+
+$ ls projects/
+NexoraOS/    SysEng_Projects/  SoftEng_Projects/  OffSec_Researches/  low_level_programs/
+
+$ ./contact --email aridswolfgangx@proton.me
+>> $`;
+
+        // Update terminal content with typing effect on load
+        window.addEventListener('load', function () {
+            const terminal = document.querySelector('.terminal');
+            const originalContent = terminal.innerHTML;
+
+            // Clear terminal
+            terminal.innerHTML = '';
+
+            // Split text into lines and type them out
+            const lines = terminalText.split('\n');
+            let lineIndex = 0;
+            let charIndex = 0;
+            let currentLine = '';
+
+            function typeLine() {
+                if (lineIndex < lines.length) {
+                    if (charIndex < lines[lineIndex].length) {
+                        currentLine += lines[lineIndex].charAt(charIndex);
+                        terminal.innerHTML = currentLine + '<span class="cursor">|</span>';
+                        charIndex++;
+                        setTimeout(typeLine, 20 + Math.random() * 30);
+                    } else {
+                        currentLine += '<br>';
+                        lineIndex++;
+                        charIndex = 0;
+                        setTimeout(typeLine, 100);
+                    }
+                } else {
+                    // Typing complete, restore cursor
+                    terminal.innerHTML = terminalText.replace(/\n/g, '<br>');
+                }
+            }
+
+            // Start typing effect after a short delay
+            setTimeout(typeLine, 500);
+        });
+    </script>
+</body>
+
+</html>
